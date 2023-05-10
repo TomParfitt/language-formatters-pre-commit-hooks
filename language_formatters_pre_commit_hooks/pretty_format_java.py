@@ -70,6 +70,12 @@ def pretty_format_java(argv: typing.Optional[typing.List[str]] = None) -> int:
         dest="aosp",
         help="Formats Java code into AOSP format",
     )
+    parser.add_argument(
+        "--fix-imports-only",
+        action="store_true",
+        dest="fix_imports_only",
+        help="Fixes imports only",
+    )
 
     parser.add_argument("filenames", nargs="*", help="Filenames to fix")
     args = parser.parse_args(argv)
@@ -103,6 +109,8 @@ def pretty_format_java(argv: typing.Optional[typing.List[str]] = None) -> int:
     ]
     if args.aosp:  # pragma: no cover
         cmd_args.append("--aosp")
+    if args.fix_imports_only:
+        cmd_args.append("--fix-imports-only")
     if args.autofix:
         cmd_args.append("--replace")
     else:
